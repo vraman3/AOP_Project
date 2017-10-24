@@ -1,2 +1,4 @@
-# AOP_Project
-Project for my Aspect Oriented Programming course.
+# AOP_Project 
+<hr>
+
+ReadMe will be updated by Oct 25/2017.
