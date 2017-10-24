@@ -1,0 +1,23 @@
+message("AspectC++ Feature selected")
+
+isEmpty(QMAKE_ACXX) {
+	    QMAKE_ACXX = ag++
+}
+for(file,ASPECT_HEADERS) {
+      QMAKE_ACXX_FLAGS += -a $$file
+}
+
+QMAKE_ACXX_FLAGS += --Xcompiler
+QMAKE_CXX = $$QMAKE_ACXX $$QMAKE_ACXX_FLAGS
+
+!isEmpty(ASPECT_HEADERS) {
+   MYOBJECTS =
+   for(file,SOURCES) {
+      ob = $$basename(file)
+      ob ~= s/\.[^.]*$/.o/
+      eval($$ob".depends = "$$ASPECT_HEADERS)
+      MYOBJECTS += $$ob
+   }
+   QMAKE_EXTRA_TARGETS += $$MYOBJECTS
+}
+

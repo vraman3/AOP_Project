@@ -1,0 +1,63 @@
+/**
+ * chessAspects.ah
+ * Aspect file for the current project
+ *
+ * @Author: Vishwanath Raman
+ *
+ */
+#ifndef __chessAspects_ah__
+#define __chessAspects_ah__
+
+#include <QLabel>
+#include <QWidget>
+#include<iostream>
+
+/**
+ * Aspect definition
+ *
+ */
+aspect changeIt {
+
+ // For counting number of tiles
+ int counter = 0;
+
+ // When the Qt Application executes
+ pointcut p1 () = call("% QApplication::exec()");
+
+ // Can call when a constructor of class Box is called
+ pointcut scaleTiles () = call("...::Box::Box(...)");
+ 
+ // Denotes the class Box
+ pointcut boxClass() = "Box";
+
+ // Add a function to all classes defined by pointcut boxClass()
+ advice boxClass() : void mouseReleaseEvent(QMouseEvent *event) {
+
+    this->setBackground();
+}
+
+ // Set scaling to true for current Box class object being created
+ // We can also use pointcut scaleTiles(), or, as done here, use
+ // the inbuilt construction() pointcut
+ advice construction (boxClass ()) : after() {
+ 
+ tjp->that()->setScaledContents(true);
+ // std::cout<<"Tile created: "<<counter++<<"\n";
+ 
+
+}
+
+ // Displays a label when the Qt Application executes
+ advice p1() : around() {
+
+ QLabel label;
+ label.setGeometry(100,300,100,100);
+ label.setText("Aspect started");
+ label.show();
+
+ tjp->proceed();
+
+ }
+}; // End of Aspect changeIt
+
+#endif  // chessAspects_ah
