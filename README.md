@@ -1,4 +1,8 @@
 # AOP_Project 
 <hr>
 
-ReadMe will be updated by Oct 25/2017.
+Delayed due to interviews and interview prep!
+
+ReadMe should be updated by Nov 2/2017.
+
+Thank you.
